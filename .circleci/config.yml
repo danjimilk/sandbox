@@ -58,10 +58,10 @@ workflows:
   build:
     jobs:
       - build-node
-        filters:
-          branches:
-            only:
-              - main
+          filters:
+            branches:
+              only:
+                - main
     # - deploy:
     #     requires:
     #       - build-node
