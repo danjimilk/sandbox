@@ -9,18 +9,39 @@ jobs:
     executor: node/default
     steps:
       - checkout
+      - run:
+          name: Checkout deploy branch
+          command: git checkout -B deploy
+      - run:
+          name: Make branch on remote
+          command: git push origin +deploy    
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run:
+          name: Build doc
           command: npm run build
       - run:
-          name: Create the ~/artifacts directory if it doesn't exist
-          command: mkdir -p ~/artifacts
-      # Copy output to artifacts dir
+          name: Delete source
+          command: rm -rf docs
       - run:
-          name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
+          name: Change folder name
+          command: mv build docs
+      - run:
+          name: Git config email
+          command: git config --global user.email "kangdanji@gmail.com"
+      - run:
+          name: Git config name
+          command: git config --global user.name "danjimilk"
+      - run:
+          name: Add change on stage
+          command: git add -A
+      - run:
+          name: Make deploy commit
+          command: git commit -m "Test deploy"  
+      - run:
+          name: Push deploy branch
+          command: git push --set-upstream origin deploy --force
       - store_artifacts:
           path: ~/artifacts
           destination: node-build
