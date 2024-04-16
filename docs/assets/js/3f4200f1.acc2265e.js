@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksandbox=self.webpackChunksandbox||[]).push([[2913],{3879:a=>{a.exports=JSON.parse('{"label":"hola","permalink":"/sandbox/blog/tags/hola","allTagsPath":"/sandbox/blog/tags","count":1,"unlisted":false}')}}]);
